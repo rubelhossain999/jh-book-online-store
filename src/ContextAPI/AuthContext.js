@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
-import app from '../Firebase/Firebase.config';
+import app from '../FireBase/FireBase.config';
 
-export const AuthContext = createContext();
+export const AuthContextAPI = createContext();
 const auth = getAuth(app)
 
-const AuthInfoContext = ({ children }) => {
+const AuthContext = ({ children }) => {
     const [user, setUser] = useState(null);
     const [useloader, setUseloader] = useState(true);
 
@@ -60,10 +60,10 @@ const AuthInfoContext = ({ children }) => {
         useloader
     }
     return (
-        <AuthContext.Provider value={authInfo}>
+        <AuthContextAPI.Provider value={authInfo}>
             {children}
-        </AuthContext.Provider>
+        </AuthContextAPI.Provider>
     );
 };
 
-export default AuthInfoContext;
+export default AuthContext;
