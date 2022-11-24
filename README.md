@@ -1,4 +1,4 @@
-# This is a Dental Service Personal Website
+# This is a JHBOOK Resale Online Store
 
 My Project Name is: JHBOOK - Online Store
 
