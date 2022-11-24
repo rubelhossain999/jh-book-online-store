@@ -1,9 +1,20 @@
-import { faBars, faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContextAPI } from '../ContextAPI/AuthContext';
 
 const Header = () => {
+    const { user, userLogOut } = useContext(AuthContextAPI);
+
+    const handleLogout = () => {
+        userLogOut()
+            .then(() => {
+                toast.success("LogOut Success!!");
+            })
+    }
+
     const menu = <React.Fragment>
         <li><NavLink className={({ Active }) => Active ? 'active' : undefined} to='/'>Home</NavLink></li>
         <li><NavLink to='/blog'>Blog</NavLink></li>
@@ -18,7 +29,7 @@ const Header = () => {
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <FontAwesomeIcon className='text-2xl' icon={faBars} />
+                            <FontAwesomeIcon className='text-2xl' icon={faBars} />
                         </label>
                         <ul tabIndex={0} className="menu text-accent menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {menu}
@@ -33,24 +44,39 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                        <button htmlFor="Sidebar-drawer" className="btn btn-xs drawer-button lg:hidden"><Link to='/dashboard'>Dashboard</Link></button>
-                    <div className='lg:flex hidden'>
-                        <Link to='/login' className="justify-between px-3 font-bold">Login</Link>
-                        <Link to='/registration' className="justify-between px-3 font-bold">Registration</Link>
-                    </div>
-                    <div className="dropdown hidden lg:flex dropdown-end border-2 border-double border-secondary rounded-full">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" alt='' />
+                    <button htmlFor="Sidebar-drawer" className="btn btn-xs drawer-button lg:hidden"><Link to='/dashboard'>Dashboard</Link></button>
+
+                    {user?.uid ?
+                        <>
+                            <div className="dropdown hidden lg:flex dropdown-end border-2 border-double border-secondary rounded-full">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        {user?.uid ?
+                                            <>
+                                                <img src={user?.photoURL} alt='ima' />
+                                            </>
+                                            :
+                                            <>
+                                                <img src="https://i.ibb.co/DQxXd4F/icons.png" alt='' />
+                                            </>}
+                                    </div>
+                                </label>
+                                <ul tabIndex={0} className="menu bg-white menu-compact dropdown-content mt-14 p-2 shadow text-accent rounded-box w-52">
+                                    <li>
+                                        <Link to='/dashboard' className="justify-between">Dashboard</Link>
+                                        <Link onClick={handleLogout} className="justify-between">Logout</Link>
+                                    </li>
+                                </ul>
                             </div>
-                        </label>
-                        <ul tabIndex={0} className="menu bg-white menu-compact dropdown-content mt-14 p-2 shadow text-accent rounded-box w-52">
-                            <li>
-                                <Link to='/dashboard' className="justify-between">Dashboard</Link>
-                                <Link to='/logout' className="justify-between">Logout</Link>
-                            </li>
-                        </ul>
-                    </div>
+                        </>
+                        :
+                        <>
+                            <div className='lg:flex hidden'>
+                                <Link to='/login' className="justify-between px-3 font-bold">Login</Link>
+                                <Link to='/registration' className="justify-between px-3 font-bold">Registration</Link>
+                            </div>
+                        </>}
+
                 </div>
             </div>
         </div>

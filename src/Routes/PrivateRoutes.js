@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthInfoContext';
+import { AuthContextAPI } from '../ContextAPI/AuthContext';
 
 const PrivateRoute = ({ children }) => {
-    const { user, useloader } = useContext(AuthContext);
+    const { user, useloader } = useContext(AuthContextAPI);
     const location = useLocation();
 
     if(useloader){

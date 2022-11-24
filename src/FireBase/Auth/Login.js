@@ -6,7 +6,7 @@ import SocialLogin from './SocialLogin';
 import Loginimg from '../../assets/Login.svg';
 
 const Login = () => {
-    const { userLogin } = useContext(AuthContextAPI);
+    const { loginuser } = useContext(AuthContextAPI);
     const location = useLocation();
     const navigator = useNavigate();
     const from = location.state?.from?.pathname || '/';
@@ -17,12 +17,12 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        userLogin(email, password)
+        loginuser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
-                //toast.success("User Login is Success!!");
+                toast.success("User Login is Success!!");
                 navigator(from, { replace: true });
             })
             .catch(error => {
@@ -45,26 +45,28 @@ const Login = () => {
                     <div className="space-y-4">
                         <div>
                             <label for="email" className="block mb-2 text-sm">Email address</label>
-                            <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100" required />
+                            <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
                                 <label for="password" className="text-sm">Password</label>
                                 <a rel="noopener noreferrer" href="/" className="text-xs hover:underline dark:text-gray-400">Forgot password?</a>
                             </div>
-                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100" required />
+                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
                     </div>
                     <div className="space-y-2">
                         <div>
                             <button className="w-full px-8 py-3 font-semibold rounded-md bg-secondary text-white">Sign in</button>
                         </div>
-                        <SocialLogin></SocialLogin>
-                        <p className="px-6 text-sm text-center text-gray-400">Don't have an account yet?
-                            <Link rel="noopener noreferrer" to="/registration" className="hover:underline text-secondary"> Sign up.</Link>
-                        </p>
                     </div>
                 </form>
+                <div className='mt-8'>
+                    <SocialLogin></SocialLogin>
+                    <p className="px-6 text-sm text-center text-gray-400">Don't have an account yet?
+                        <Link rel="noopener noreferrer" to="/registration" className="hover:underline text-secondary"> Sign up.</Link>
+                    </p>
+                </div>
             </div>
         </div>
     );

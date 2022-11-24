@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import app from '../FireBase/FireBase.config';
 
 export const AuthContextAPI = createContext();
@@ -9,32 +9,36 @@ const AuthContext = ({ children }) => {
     const [user, setUser] = useState(null);
     const [useloader, setUseloader] = useState(true);
 
-    /// Create User
+    /// 1. Create User
     const createUser = (email, password) => {
         setUseloader(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    /// Update User Name and Photo
-    const updatUsernameandphoto = (name, photo) => {
+    /// 2.  Update User Name and Photo
+    const updatUsernameandrole = (name, role) => {
         return updateProfile(auth.currentUser, {
             displayName: name,
-            photoURL: photo,
+            userrole: role,
         });
     }
 
-    /// User logOut
+    /// 3. User logOut
     const userLogOut = () => {
         setUseloader(true);
         return signOut(auth);
     }
 
-    /// Login user
+    /// 4. Login user
     const loginuser = (email, password) => {
         setUseloader(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
+    // 5. Google Login System
+    const googleLoginPop = (provider) => {
+        return signInWithPopup(auth, provider);
+    }
 
     /// unsubscribe with loader
     useEffect(() => {
@@ -54,10 +58,11 @@ const AuthContext = ({ children }) => {
     const authInfo = {
         user,
         createUser,
-        updatUsernameandphoto,
+        updatUsernameandrole,
         userLogOut,
         loginuser,
-        useloader
+        useloader,
+        googleLoginPop
     }
     return (
         <AuthContextAPI.Provider value={authInfo}>

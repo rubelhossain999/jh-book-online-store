@@ -7,7 +7,7 @@ import SocialLogin from './SocialLogin';
 
 
 const Registration = () => {
-   // const { userRegistration, updatUsernameandphoto } = useContext(AuthContextAPI);
+     const { createUser, updatUsernameandrole } = useContext(AuthContextAPI);
     const navigator = useNavigate();
 
     const handleSignUp = event => {
@@ -17,25 +17,26 @@ const Registration = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
+        const role = form.role.value;
 
-        console.log(name, email, password);
+        console.log(name, email, password, role);
 
-        // userRegistration(email, password)
-        //     .then(res => {
-        //         updatUsernameandphoto(name)
-        //             .then(() => {
-        //                 form.reset('')
-        //                 toast.success("User Login Success");
-        //                 navigator('/');
-        //             })
-        //             .catch(error => {
-        //                 console.log(error);
-        //             })
+        createUser(email, password)
+            .then(res => {
+                updatUsernameandrole(name, role)
+                    .then(() => {
+                        form.reset('')
+                        toast.success("User Login Success");
+                        navigator('/');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
 
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     })
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
 
 
@@ -52,26 +53,26 @@ const Registration = () => {
                     <div className="space-y-4">
                         <div>
                             <label for="name" className="block mb-2 text-sm">Name</label>
-                            <input type="name" name="name" id="name" placeholder="name" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-gray-100" required />
+                            <input type="name" name="name" id="name" placeholder="name" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
                         <div>
                             <label for="email" className="block mb-2 text-sm">Email address</label>
-                            <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-gray-100" required />
+                            <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
                         <div>
                             <label for="email" className="block mb-2 text-sm">Selected User Role</label>
-                            <select className="w-full px-4 py-3 rounded-mdbg-white text-black focus:border-violet-400 rounded" required>
-                            <option name="customer">Customer</option>
-                            <option name="writer">Writer</option>
-                            <option name="seller">Seller</option>
-                        </select>
+                            <select name="role" className="w-full px-4 py-3 rounded-mdbg-white text-black focus:border-violet-400 rounded" required>
+                                <option>Customer</option>
+                                <option>Writer</option>
+                                <option>Seller</option>
+                            </select>
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
                                 <label for="password" className="text-sm">Password</label>
                                 <a rel="noopener noreferrer" href="/" className="text-xs hover:underline dark:text-gray-400">Forgot password?</a>
                             </div>
-                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-gray-100" required />
+                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
                     </div>
                     <div className="space-y-2">

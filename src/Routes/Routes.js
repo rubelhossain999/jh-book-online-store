@@ -8,6 +8,7 @@ import Home from "../Components/Home/Home";
 import Main from "../Components/Main";
 import Login from "../FireBase/Auth/Login";
 import Registration from "../FireBase/Auth/Registration";
+import PrivateRoute from "./PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             {
                 path: '/dashboard/',
