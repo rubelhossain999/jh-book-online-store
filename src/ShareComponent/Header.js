@@ -18,6 +18,8 @@ const Header = () => {
     const menu = <React.Fragment>
         <li><NavLink className={({ Active }) => Active ? 'active' : undefined} to='/'>Home</NavLink></li>
         <li><NavLink to='/blog'>Blog</NavLink></li>
+        <li><NavLink to='/freebooks'>Free Books</NavLink></li>
+        <li><NavLink to='/pdfbook'>PDF Books</NavLink></li>
     </React.Fragment >
     const authMenu = <React.Fragment>
         <Link to='/login' className="justify-between px-3 font-bold">Login</Link>
@@ -46,6 +48,7 @@ const Header = () => {
                 <div className="navbar-end">
                     <button htmlFor="Sidebar-drawer" className="btn btn-xs drawer-button lg:hidden"><Link to='/dashboard'>Dashboard</Link></button>
 
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden"><FontAwesomeIcon className='text-2xl' icon={faBars} /></label>
                     {user?.uid ?
                         <>
                             <div className="dropdown hidden lg:flex dropdown-end border-2 border-double border-secondary rounded-full">

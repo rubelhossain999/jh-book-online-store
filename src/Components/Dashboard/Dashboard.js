@@ -7,14 +7,15 @@ const Dashboard = () => {
         <>
             <Header></Header>
             <div className="drawer drawer-mobile max-w-[1340px] mx-auto">
-                <input id="Sidebar-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
+                <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content flex flex-col m-10">
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
-                    <label htmlFor="Sidebar-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 text-accent bg-slate-200">
+                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu p-4 w-60 bg-primary border-t text-base-content">
                         <li><Link to='/dashboard'>Dashboard</Link></li>
+                        <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
                         <li><Link to='/dashboard/myproduct'>My Product</Link></li>
                     </ul>
 
