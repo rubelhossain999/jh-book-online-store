@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 const Header = () => {
     const menu = <React.Fragment>
         <li><NavLink className={({ Active }) => Active ? 'active' : undefined} to='/'>Home</NavLink></li>
-        <li><NavLink to='/about'>About</NavLink></li>
+        <li><NavLink to='/blog'>Blog</NavLink></li>
         <li><NavLink to='/appointment'>Appointment</NavLink></li>
         <li><NavLink to='/reviews'>Reviews</NavLink></li>
         <li><NavLink to='/contact'>Contact Us</NavLink></li>
