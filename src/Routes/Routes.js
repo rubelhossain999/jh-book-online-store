@@ -6,6 +6,8 @@ import MyProduct from "../Components/Dashboard/MyProduct/MyProduct";
 import Error from "../Components/Error/Error";
 import Home from "../Components/Home/Home";
 import Main from "../Components/Main";
+import Login from "../FireBase/Auth/Login";
+import Registration from "../FireBase/Auth/Registration";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path:'/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/registration',
+                element: <Registration></Registration>
             },
             {
                 path: '*',
