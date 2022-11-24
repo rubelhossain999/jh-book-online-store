@@ -28,7 +28,7 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        News
+                                        Free Book
                                     </a>
                                 </li>
                                 <li>
@@ -36,7 +36,7 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        World
+                                        PDF Ebook
                                     </a>
                                 </li>
                                 <li>
@@ -44,14 +44,14 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Games
+                                        Pro Book
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div>
                             <p className="font-semibold tracking-wide ">
-                                Business
+                                Info Links
                             </p>
                             <ul className="mt-2 space-y-2">
                                 <li>
@@ -59,7 +59,7 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Web
+                                        Home
                                     </a>
                                 </li>
                                 <li>
@@ -67,7 +67,7 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        eCommerce
+                                        About
                                     </a>
                                 </li>
                                 <li>
@@ -75,51 +75,29 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Business
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-semibold tracking-wide ">Apples</p>
-                            <ul className="mt-2 space-y-2">
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="transition-colors duration-300 hover:text-deep-purple-accent-400"
-                                    >
-                                        Media
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="transition-colors duration-300 hover:text-deep-purple-accent-400"
-                                    >
-                                        Brochure
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="transition-colors duration-300 hover:text-deep-purple-accent-400"
-                                    >
-                                        Nonprofit
+                                        Contact Us
                                     </a>
                                 </li>
 
                             </ul>
                         </div>
                         <div>
-                            <p className="font-semibold tracking-wide ">Cherry</p>
+                            <p className="font-semibold tracking-wide ">Support Area</p>
                             <ul className="mt-2 space-y-2">
                                 <li>
                                     <a
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Infopreneur
+                                        Return Policy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="/"
+                                        className="transition-colors duration-300 hover:text-deep-purple-accent-400"
+                                        >
+                                        Affiliates
                                     </a>
                                 </li>
                                 <li>
@@ -127,7 +105,24 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Personal
+                                        Legal Notice
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div>
+                            <p className="font-semibold tracking-wide ">Contact info</p>
+                            <ul className="mt-2 space-y-2">
+                                <li>
+                                    * Wave, via habro dereinio 2b 52100 Arezo, italy
+                                </li>
+                                <li>
+                                    <a
+                                        href="/"
+                                        className="transition-colors duration-300 hover:text-deep-purple-accent-400"
+                                    >
+                                        * support@jhbook.com
                                     </a>
                                 </li>
                                 <li>
@@ -135,7 +130,7 @@ const Footer = () => {
                                         href="/"
                                         className="transition-colors duration-300 hover:text-deep-purple-accent-400"
                                     >
-                                        Wiki
+                                        * +8801789-153209
                                     </a>
                                 </li>
                             </ul>
