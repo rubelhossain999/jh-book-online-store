@@ -16,10 +16,10 @@ const AuthContext = ({ children }) => {
     }
 
     /// 2.  Update User Name and Photo
-    const updatUsernameandrole = (name, role) => {
+    const updatUsernameandrole = (name, photoURL) => {
         return updateProfile(auth.currentUser, {
             displayName: name,
-            userrole: role,
+            photoURL: photoURL,
         });
     }
 
