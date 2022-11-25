@@ -12,12 +12,15 @@ const Registration = () => {
     const [profileImage, setProfileImage] = useState();
     const imgHostKey = process.env.REACT_APP_ibbimage_KEY;
 
+    console.log(profileImage);
+
     const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
 
         const name = form.name.value;
         const email = form.email.value;
+        const role = form.role.value;
         const password = form.password.value;
         const photoURL = form.photoURL.files[0];
 
@@ -32,26 +35,38 @@ const Registration = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                setProfileImage(imgData.data.url);
-            })
 
+                createUser(email, password)
+                    .then(res => {
+                        updatUsernameandrole(name, imgData.data.url)
+                            .then(() => {
+                                form.reset('')
+                                toast.success("User Login Success");
+                                navigator('/');
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
 
-        createUser(email, password)
-            .then(res => {
-                updatUsernameandrole(name, profileImage)
-                    .then(() => {
-                        form.reset('')
-                        toast.success("User Login Success");
-                        navigator('/');
                     })
                     .catch(error => {
                         console.log(error);
                     })
 
+
+                const userInfo = {
+                    name,
+                    email,
+                    profileImage,
+                    role
+                }
+
+                console.log(userInfo);
+
+
             })
-            .catch(error => {
-                console.log(error);
-            })
+
+
 
 
 

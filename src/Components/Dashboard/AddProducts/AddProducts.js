@@ -7,6 +7,8 @@ const AddProducts = () => {
   const [coverImage, setCoverImage] = useState();
   const imgHostKey = process.env.REACT_APP_ibbimage_KEY;
 
+  console.log(user.photoURL);
+
 
   const handleaddnewBook = event => {
     event.preventDefault();
@@ -25,13 +27,13 @@ const AddProducts = () => {
     formData.append('image', image);
     const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
     fetch(url, {
-        method: 'POST',
-        body: formData,
+      method: 'POST',
+      body: formData,
     })
-    .then( res => res.json())
-    .then( imgData => {
-      setCoverImage(imgData.data.url);
-    })
+      .then(res => res.json())
+      .then(imgData => {
+        setCoverImage(imgData.data.url);
+      })
 
     const allBookdata = {
       title,
@@ -41,9 +43,9 @@ const AddProducts = () => {
       email: user?.email,
       categorie,
       authName,
+      photoURL: user.photoURL,
       postTime: new Date()
     }
-    console.log(allBookdata);
 
     fetch('http://localhost:5000/books', {
       method: 'POST',
@@ -62,8 +64,27 @@ const AddProducts = () => {
         console.log(err);
       })
 
+    /// Add Product on the Mongodb
+
+    fetch('http://localhost:5000/users', {
+      method: "POST",
+      headers: {
+        "content-type" : "application/json"
+      },
+      body: JSON.stringify(allBookdata)
+    })
+    .then( res=> res.json())
+    .then( data => {
+      console.log(data);
+    })
+    .catch( err => {
+      console.log(err);
+    })
+
 
   }
+
+
 
   return (
     <div>

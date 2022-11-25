@@ -7,11 +7,12 @@ import Hero from './Hero';
 import MobileApp from './MobileApp';
 
 const Home = () => {
+
     return (
         <div>
             <Hero></Hero>
             <Categories></Categories>
-            <AdvertisedItems></AdvertisedItems>
+            {/* <AdvertisedItems></AdvertisedItems> */}
             <SecondHand></SecondHand>
             <Authors></Authors>
             <MobileApp></MobileApp>
