@@ -9,6 +9,7 @@ import Home from "../Components/Home/Home";
 import Main from "../Components/Main";
 import FreeBooks from "../Components/Products/FreeBooks";
 import PDFBooks from "../Components/Products/PDFBooks";
+import PremiumBooks from "../Components/Products/PremiumBooks";
 import Login from "../FireBase/Auth/Login";
 import Registration from "../FireBase/Auth/Registration";
 import PrivateRoute from "./PrivateRoutes";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/pdfbook',
                 element: <PDFBooks></PDFBooks>
+            },
+            {
+                path: '/premiumBooks',
+                element: <PremiumBooks></PremiumBooks>
             },
             {
                 path: '*',

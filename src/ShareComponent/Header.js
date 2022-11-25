@@ -20,6 +20,7 @@ const Header = () => {
         <li><NavLink to='/blog'>Blog</NavLink></li>
         <li><NavLink to='/freebooks'>Free Books</NavLink></li>
         <li><NavLink to='/pdfbook'>PDF Books</NavLink></li>
+        <li><NavLink to='/premiumBooks'>Premium Books</NavLink></li>
     </React.Fragment >
     const authMenu = <React.Fragment>
         <Link to='/login' className="justify-between px-3 font-bold">Login</Link>

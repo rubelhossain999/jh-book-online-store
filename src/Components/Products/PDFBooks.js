@@ -3,12 +3,12 @@ import React from 'react';
 const PDFBooks = () => {
     return (
         <div>
-        <div className="hero max-h-full" style={{ backgroundImage: `url("https://i.ibb.co/T8q9z6K/2019-03-02-66706-1551461528-large.jpg")` }}>
+        <div className="hero max-h-full" style={{ backgroundImage: `url("https://i.ibb.co/gySLFc1/tablet-1632909-1280.jpg")` }}>
             <div className="hero-overlay bg-slate-800 bg-opacity-70"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-lg p-5 lg:mt-20 lg:mb-16">
-                    <h1 className="mb-5 text-5xl text-white font-bold">PDF Books Store</h1>
-                    <p className="mb-5 text-white">To get free books, you must register and order. Must follow the rules and regulations of the website and submit the books within the specified time.</p>
+                    <h1 className="mb-5 text-5xl text-white font-bold">PDF E-Books Store</h1>
+                    <p className="mb-5 text-white">In this section, PDF books and academic and non-academic books can be sold and downloaded for free and can be studied without physical books through phone.</p>
                 </div>
             </div>
         </div>
