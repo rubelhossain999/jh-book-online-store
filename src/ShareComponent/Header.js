@@ -18,9 +18,9 @@ const Header = () => {
     const menu = <React.Fragment>
         <li><NavLink className={({ Active }) => Active ? 'active' : undefined} to='/'>Home</NavLink></li>
         <li><NavLink to='/blog'>Blog</NavLink></li>
-        <li><NavLink to='/freebooks'>Free Books</NavLink></li>
-        <li><NavLink to='/pdfbook'>PDF Books</NavLink></li>
-        <li><NavLink to='/premiumBooks'>Premium Books</NavLink></li>
+        <li><NavLink to='/category/freebooks'>Free Books</NavLink></li>
+        <li><NavLink to='/category/pdfbook'>PDF Books</NavLink></li>
+        <li><NavLink to='/category/premiumbooks'>Premium Books</NavLink></li>
     </React.Fragment >
     const authMenu = <React.Fragment>
         <Link to='/login' className="justify-between px-3 font-bold">Login</Link>

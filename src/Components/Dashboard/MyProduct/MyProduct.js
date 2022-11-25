@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment/moment';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContextAPI } from '../../../ContextAPI/AuthContext';
+import Loader from '../../SecondHand/Loader/Loader';
 
 const MyProduct = () => {
-    const { user } = useContext(AuthContextAPI);
+    const { user, useloader } = useContext(AuthContextAPI);
 
 
     const { data: myProducts = [] } = useQuery({
@@ -17,7 +17,6 @@ const MyProduct = () => {
 
         }
     });
-    console.log(myProducts);
 
     return (
         <div>
@@ -37,21 +36,29 @@ const MyProduct = () => {
                                 </tr>
                             </thead>
                             <tbody className='text-accent'>
-                                {
-                                    myProducts?.map((myProducts, i) =>
-                                        <tr key={myProducts._id}>
-                                            <th>{i + 1}</th>
-                                            <td>{myProducts.title.slice(0, 15) + "..."}</td>
-                                            <td>{myProducts.categorie}</td>
-                                            <td>{myProducts.price} Taka</td>
-                                            <td>
-                                                <button className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</button>
-                                                <br/>
-                                                <button className='btn text-white btn-sm btn-success'>UPDATE</button>
-                                            </td>
-                                            <td>{moment(myProducts.postTime).format('MMMM Do YYYY')}</td>
-                                        </tr>
-                                    )
+                                {useloader ?
+                                    <>
+                                        <Loader></Loader>
+                                    </>
+                                    :
+                                    <>
+                                        {
+                                            myProducts?.map((myProducts, i) =>
+                                                <tr key={myProducts._id}>
+                                                    <th>{i + 1}</th>
+                                                    <td>{myProducts.title.slice(0, 15) + "..."}</td>
+                                                    <td>{myProducts.categorie}</td>
+                                                    <td>{myProducts.price} Taka</td>
+                                                    <td>
+                                                        <button className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</button>
+                                                        <br />
+                                                        <button className='btn text-white btn-sm btn-success'>UPDATE</button>
+                                                    </td>
+                                                    <td>{moment(myProducts.postTime).format('MMMM Do YYYY')}</td>
+                                                </tr>
+                                            )
+                                        }
+                                    </>
                                 }
                             </tbody>
                         </table>

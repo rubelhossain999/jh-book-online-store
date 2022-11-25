@@ -37,19 +37,19 @@ const router = createBrowserRouter([
                 element: <Registration></Registration>
             },
             {
-                path: '/freebooks',
+                path: '/category/freebooks',
                 element: <FreeBooks></FreeBooks>
             },
             {
-                path: '/pdfbook',
+                path: '/category/pdfbook',
                 element: <PDFBooks></PDFBooks>
             },
             {
-                path: '/premiumBooks',
+                path: '/category/premiumbooks',
                 element: <PremiumBooks></PremiumBooks>
             },
             {
-                path: '/allbooks',
+                path: '/category',
                 element: <AllBooks></AllBooks>
             },
             {

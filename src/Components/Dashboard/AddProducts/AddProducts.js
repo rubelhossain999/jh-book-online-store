@@ -1,14 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContextAPI } from '../../../ContextAPI/AuthContext';
 
 const AddProducts = () => {
   const { user } = useContext(AuthContextAPI);
-  const [coverImage, setCoverImage] = useState();
-  const imgHostKey = process.env.REACT_APP_ibbimage_KEY;
-
-  console.log(user.photoURL);
-
 
   const handleaddnewBook = event => {
     event.preventDefault();
@@ -17,29 +12,29 @@ const AddProducts = () => {
     const title = form.title.value;
     const description = form.description.value;
     const price = form.price.value;
-    const image = form.image.files[0];
+    const image = form.image.value;
     const categorie = form.categorie.value;
     const authName = form.authName.value;
 
 
-    /// Image Info
-    const formData = new FormData();
-    formData.append('image', image);
-    const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
-    fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(imgData => {
-        setCoverImage(imgData.data.url);
-      })
+    // /// Image Info
+    // const formData = new FormData();
+    // formData.append('image', image);
+    // const url = `https://api.imgbb.com/1/upload?key=${imgHost}`;
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: formData,
+    // })
+    //   .then(res => res.json())
+    //   .then(imgData => {
+    //     setCoverImage(imgData.data.url);
+    //   })
 
     const allBookdata = {
       title,
       description,
       price,
-      coverImage,
+      image,
       email: user?.email,
       categorie,
       authName,
@@ -85,7 +80,6 @@ const AddProducts = () => {
   }
 
 
-
   return (
     <div>
       <h2 className='text-3xl text-accent font-semibold'>Add New Product</h2>
@@ -106,8 +100,8 @@ const AddProducts = () => {
               <span className='text-xs text-secondary'>If you want to sell the book for free, write the price 00.</span>
             </div>
             <div>
-              <label for="authName" className="block mb-2 text-xl text-black">Book Cover Image</label>
-              <input type="file" name="image" id="file" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+              <label for="image" className="block mb-2 text-xl text-black">Book Cover Image</label>
+              <input type="text" name="image" id="image" placeholder='Cover Image URL' className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
             </div>
             <div>
               <label for="categorie" className="block mb-2 text-xl text-black">Select Categories</label>
