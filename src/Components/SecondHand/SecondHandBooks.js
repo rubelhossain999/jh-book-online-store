@@ -11,7 +11,7 @@ const SecondHandBooks = () => {
     const { data: userBooksData = [] } = useQuery({
         queryKey: ["userBooksData"],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('https://book-resale-server-site.vercel.app/users');
             const data = res.json();
             return (data);
         }
@@ -20,7 +20,7 @@ const SecondHandBooks = () => {
     const { data: BooksData = [] } = useQuery({
         queryKey: ["BooksData"],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/books');
+            const res = await fetch('https://book-resale-server-site.vercel.app/books');
             const data = res.json();
             return (data);
         }

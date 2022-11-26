@@ -42,7 +42,7 @@ const AddProducts = () => {
       postTime: new Date()
     }
 
-    fetch('http://localhost:5000/books', {
+    fetch('https://book-resale-server-site.vercel.app/books', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -61,7 +61,7 @@ const AddProducts = () => {
 
     /// Add Product on the Mongodb
 
-    fetch('http://localhost:5000/users', {
+    fetch('https://book-resale-server-site.vercel.app/users', {
       method: "POST",
       headers: {
         "content-type" : "application/json"
