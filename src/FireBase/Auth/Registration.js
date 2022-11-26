@@ -41,8 +41,6 @@ const Registration = () => {
                         updatUsernameandrole(name, imgData.data.url)
                             .then(() => {
                                 form.reset('')
-                                toast.success("User Login Success");
-                                navigator('/');
                             })
                             .catch(error => {
                                 console.log(error);
@@ -54,20 +52,34 @@ const Registration = () => {
                     })
 
 
-                const userInfo = {
-                    name,
-                    email,
-                    profileImage,
-                    role
-                }
-
-                console.log(userInfo);
-
 
             })
+        const userInfo = {
+            name,
+            email,
+            profileImage,
+            role
+        }
+        console.log(userInfo);
 
+        /// User info Mongodb Added
 
-
+        fetch('http://localhost:5000/regisusers', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success("User Login Success");
+                navigator('/');
+            })
+            .catch(err => {
+                console.log(err);
+            })
 
 
     }
