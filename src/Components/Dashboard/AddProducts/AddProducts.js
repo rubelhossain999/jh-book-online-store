@@ -1,9 +1,29 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContextAPI } from '../../../ContextAPI/AuthContext';
 
 const AddProducts = () => {
   const { user } = useContext(AuthContextAPI);
+  const navigate = useNavigate();
+
+  const { data: sellersdatafromdash = [] } = useQuery({
+    queryKey: ["sellersdatafromdash"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/regisusers?email=${user?.email}`);
+      const data = res.json();
+      return (data);
+    }
+  });
+  
+  
+  {
+    sellersdatafromdash.map(sellersdatafromdash => console.log(sellersdatafromdash.role))
+  }
+
+
+
 
   const handleaddnewBook = event => {
     event.preventDefault();
@@ -12,6 +32,9 @@ const AddProducts = () => {
     const title = form.title.value;
     const description = form.description.value;
     const price = form.price.value;
+    const beforeprice = form.beforeprice.value;
+    const location = form.location.value;
+    const usetime = form.usetime.value;
     const image = form.image.value;
     const categorie = form.categorie.value;
     const authName = form.authName.value;
@@ -34,7 +57,11 @@ const AddProducts = () => {
       title,
       description,
       price,
+      beforeprice,
+      location,
+      usetime,
       image,
+      role: sellersdatafromdash.role,
       email: user?.email,
       categorie,
       authName,
@@ -54,6 +81,7 @@ const AddProducts = () => {
       .then(data => {
         toast.success('New Book Added Is Success!!');
         form.reset('');
+        navigate('/dashboard/myproduct')
       })
       .catch(err => {
         console.log(err);
@@ -64,17 +92,17 @@ const AddProducts = () => {
     fetch('https://book-resale-server-site.vercel.app/users', {
       method: "POST",
       headers: {
-        "content-type" : "application/json"
+        "content-type": "application/json"
       },
       body: JSON.stringify(allBookdata)
     })
-    .then( res=> res.json())
-    .then( data => {
-      console.log(data);
-    })
-    .catch( err => {
-      console.log(err);
-    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
 
 
   }
@@ -95,9 +123,21 @@ const AddProducts = () => {
               <textarea type="text" name="description" id="description" placeholder="Book Description" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
             </div>
             <div>
-              <label for="price" className="block mb-2 text-xl text-black">Price</label>
-              <input type="text" name="price" id="price" placeholder="Price" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
+              <label for="price" className="block mb-2 text-xl text-black">Current Price</label>
+              <input type="number" name="price" id="price" placeholder="Current Price" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
               <span className='text-xs text-secondary'>If you want to sell the book for free, write the price 00.</span>
+            </div>
+            <div>
+              <label for="beforeprice" className="block mb-2 text-xl text-black">Before price</label>
+              <input type="number" name="beforeprice" id="beforeprice" placeholder="Before Price" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
+            </div>
+            <div>
+              <label for="location" className="block mb-2 text-xl text-black">Location</label>
+              <input type="text" name="location" id="location" placeholder="Selling location" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
+            </div>
+            <div>
+              <label for="usetime" className="block mb-2 text-xl text-black">Use Time</label>
+              <input type="text" name="usetime" id="usetime" placeholder="Use Time: 1 year" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
             </div>
             <div>
               <label for="image" className="block mb-2 text-xl text-black">Book Cover Image</label>

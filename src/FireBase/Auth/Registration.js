@@ -41,6 +41,8 @@ const Registration = () => {
                         updatUsernameandrole(name, imgData.data.url)
                             .then(() => {
                                 form.reset('')
+                                toast.success("User Login Success");
+                                navigator('/');
                             })
                             .catch(error => {
                                 console.log(error);
@@ -49,6 +51,7 @@ const Registration = () => {
                     })
                     .catch(error => {
                         console.log(error);
+                        toast.error("This User already Registered", error.meassage);
                     })
 
 
@@ -74,8 +77,6 @@ const Registration = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                toast.success("User Login Success");
-                navigator('/');
             })
             .catch(err => {
                 console.log(err);
@@ -97,6 +98,7 @@ const Registration = () => {
                             <label for="name" className="block mb-2 text-sm">Name</label>
                             <input type="name" name="name" id="name" placeholder="name" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
+                        
                         <div>
                             <label for="email" className="block mb-2 text-sm">Email address</label>
                             <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
@@ -104,7 +106,6 @@ const Registration = () => {
                         <div>
                             <label for="role" className="block mb-2 text-sm">Selected User Role</label>
                             <select name="role" className="w-full px-4 py-3 rounded-mdbg-white text-black focus:border-violet-400 rounded" required>
-                                <option disabled selected>User Role</option>
                                 <option value='customer'>Customer</option>
                                 <option value='seller'>Seller</option>
                             </select>

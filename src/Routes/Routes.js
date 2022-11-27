@@ -11,6 +11,7 @@ import Main from "../Components/Main";
 import FreeBooks from "../Components/Products/FreeBooks";
 import PDFBooks from "../Components/Products/PDFBooks";
 import PremiumBooks from "../Components/Products/PremiumBooks";
+import SingleBook from "../Components/SingleBook/SingleBook";
 import Login from "../FireBase/Auth/Login";
 import Registration from "../FireBase/Auth/Registration";
 import PrivateRoute from "./PrivateRoutes";
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/category/:id',
+                element: <SingleBook></SingleBook>,
+                loader: ({ params }) => fetch(`http://localhost:3000/books/${params.id}`)
             },
             {
                 path: '/blog',

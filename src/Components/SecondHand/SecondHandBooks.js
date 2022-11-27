@@ -27,7 +27,7 @@ const SecondHandBooks = () => {
     });
 
 
-    console.log(BooksData.image);
+    console.log(BooksData);
     console.log(userBooksData);
 
 
@@ -78,14 +78,21 @@ const SecondHandBooks = () => {
                                     }
                                     <h2 className="mb-1 text-xl font-semibold">{BooksData?.title.slice(0, 36) + "..."}</h2>
                                     <p className="text-sm text-gray-400">{BooksData?.description.slice(0, 100) + "..."}</p>
-                                    <span className="mb-1 text-sm font-semibold text-secondary">Category : {BooksData?.categorie}</span>
+                                    <div className='grid lg:grid-cols-2 text-base grid-cols-1 text-center mt-4'>
+                                        <span className="mb-1 font-semibold text-secondary">Category : {BooksData?.categorie}</span>
+                                        <span className="mb-1 font-semibold text-secondary">Location : {BooksData?.location}</span>
+                                    </div>
                                 </div>
                                 <div className="flex flex-wrap justify-between items-center">
-                                    <button className="btn btn-secondary text-white text-center">
-                                        Buy Now
-                                    </button>
-                                    <div className="flex space-x-2 text-2xl text-white">
-                                        Price: $ {BooksData?.price}
+                                    <Link to={`/category/${BooksData._id}`}>
+                                        <button className="btn btn-secondary text-white text-center">
+                                            Buy Now
+                                        </button>
+                                    </Link>
+                                    <div className="flex space-x-2 text-xl text-white">
+                                       <span> Price : $ {BooksData?.price}</span>
+                                       <span>-</span>
+                                       <span className='line-through text-red-500'>$ {BooksData?.beforeprice}</span> 
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ import Authors from './Authors';
 import Categories from './Categories';
 import Hero from './Hero';
 import MobileApp from './MobileApp';
+import PromoSection from './PromoSection';
 
 const Home = () => {
 
@@ -12,8 +13,9 @@ const Home = () => {
         <div>
             <Hero></Hero>
             <Categories></Categories>
-            {/* <AdvertisedItems></AdvertisedItems> */}
+            <AdvertisedItems></AdvertisedItems>
             <SecondHand></SecondHand>
+            <PromoSection></PromoSection>
             <Authors></Authors>
             <MobileApp></MobileApp>
         </div>

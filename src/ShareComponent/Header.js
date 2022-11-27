@@ -1,12 +1,23 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContextAPI } from '../ContextAPI/AuthContext';
 
-const Header = () => {
+const Header = ({ userStatu }) => {
     const { user, userLogOut } = useContext(AuthContextAPI);
+
+    const { data: userinformation = [] } = useQuery({
+        queryKey: ["userinformation"],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/regisusers?email=${user?.email}`);
+            const data = res.json();
+            return (data);
+        }
+    });
+
 
     const handleLogout = () => {
         userLogOut()
@@ -59,27 +70,33 @@ const Header = () => {
                         <>
                             <div className="dropdown hidden lg:flex dropdown-end">
                                 <div className="flex flex-col items-center justify-center">
-                                    <div className="flex flex-wrap gap-x-2 gap-y-2">
-                                        {user?.verified ?
+                                    {
+                                        userinformation?.map(usestatus =>
                                             <>
-                                                <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
-                                                    <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full text-gray-100 border-gray-900"></span>
-                                                    <Link><img src={user?.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
-                                                </div>
-                                            </>
-                                            :
-                                            <>
-                                                <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
-                                                    <span className="absolute bottom-0 right-0 flex items-center justify-center w-4 h-4 bg-red-600 border rounded-full border-gray-900 text-gray-900">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-2 h-3 fill-current">
-                                                            <rect width="368" height="32" x="72" y="240"></rect>
-                                                        </svg>
-                                                    </span>
-                                                    <Link><img src={user?.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
-                                                </div>
-                                            </>}
+                                                <div className="flex flex-wrap gap-x-2 gap-y-2">
+                                                    {usestatus?.verified ?
+                                                        <>
+                                                            <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
+                                                                <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full text-gray-100 border-gray-900"></span>
+                                                                <Link><img src={user?.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
+                                                            </div>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
+                                                                <span className="absolute bottom-0 right-0 flex items-center justify-center w-4 h-4 bg-red-600 border rounded-full border-gray-900 text-gray-900">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-2 h-3 fill-current">
+                                                                        <rect width="368" height="32" x="72" y="240"></rect>
+                                                                    </svg>
+                                                                </span>
+                                                                <Link><img src={user?.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
+                                                            </div>
+                                                        </>}
 
-                                    </div>
+                                                </div>
+                                            </>)
+                                    }
+
                                 </div>
                                 <ul tabIndex={0} className="menu bg-white menu-compact dropdown-content mt-14 p-2 shadow text-accent rounded-box w-52">
                                     <li>

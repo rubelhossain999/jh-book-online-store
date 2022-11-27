@@ -1,22 +1,55 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import ConfirmationModal from '../../ShareComponent/ConfirmationModal';
+import VerificationModal from '../../ShareComponent/VerificationModal';
 import Loader from '../SecondHand/Loader/Loader';
 
 const DashboardInfo = () => {
     const { user, useloader } = useContext(AuthContextAPI);
+    const [deleteingSeller, setDeleteingSeller] = useState(null);
+    const [userVerified, SetUserverified] = useState(null);
 
 
-    const { data: mysellers = [] } = useQuery({
+    /// Data load from Mongodb
+    const { data: mysellers = [], refetch } = useQuery({
         queryKey: ["mysellers"],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/regisusers');
             const data = res.json();
-            return(data);
+            return (data);
         }
     });
 
-    console.log(mysellers);
+
+    /// User Delete Config
+    const hadleDeleteSeller = user => {
+        fetch(`http://localhost:5000/regisusers/${user._id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success("Deleted Seller Data Success!!");
+                }
+            })
+    }
+
+    /// User Veified
+    const hadleUserVerified = id => {
+        fetch(`http://localhost:5000/regisusers/${id}`, {
+            method: 'PUT',
+        })
+            .then(res => res.json())
+            .then(data => {
+                refetch();
+                toast.success("Your User is  Verified!!");
+            })
+    }
+
 
 
     return (
@@ -31,7 +64,9 @@ const DashboardInfo = () => {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Action</th>
                                 <th>Status</th>
+                                <th>Request</th>
                             </tr>
                         </thead>
                         <tbody className='text-accent'>
@@ -42,16 +77,27 @@ const DashboardInfo = () => {
                                 :
                                 <>
                                     {
-                                        mysellers?.map((mysellers, i) =>
-                                            <tr key={mysellers._id}>
+                                        mysellers?.map((myseller, i) =>
+                                            <tr key={myseller._id}>
                                                 <th>{i + 1}</th>
-                                                <td>{mysellers.name}</td>
-                                                <td>{mysellers.email}</td>
-                                                <td>{mysellers.role}</td>
+                                                <td>{myseller.name}</td>
+                                                <td>{myseller.email}</td>
+                                                <td>{myseller.role}</td>
                                                 <td>
-                                                    <button className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</button>
-                                                    <br />
-                                                    <button className='btn text-white btn-sm btn-success'>UPDATE</button>
+                                                    <label onClick={() => setDeleteingSeller(myseller)} htmlFor="confirmation-modal" className="btn text-white btn-sm btn-error mr-3 mb-2">Seller Delete</label>
+                                                </td>
+                                                <td>
+                                                    {myseller?.verified ?
+                                                        <>
+                                                            <label className=' text-white p-2 rounded-lg font-bold btn-success'>User Verified</label>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <label onClick={() => SetUserverified(myseller._id)} htmlFor="confirmation-veri" className="btn text-black border-none btn-sm btn-error mr-3 mb-2 bg-orange-300">Unverified</label>
+                                                        </>}
+                                                </td>
+                                                <td>
+                                                    <label className="btn text-black border-none btn-sm btn-error mr-3 mb-2 bg-blue-300">Admin Request</label>
                                                 </td>
                                             </tr>
                                         )
@@ -61,11 +107,30 @@ const DashboardInfo = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <h2 className='text-3xl text-accent font-semibold pt-10'>All Customer</h2>
-            <div>
+                {/* Seller Delete Information */}
+                {
+                    deleteingSeller && <ConfirmationModal
+                        title='Are you sure you want to delete this seller?'
+                        meassage="If you delete this seller, all information about this seller will be deleted from the database. Click on the Delete button to confirm."
+                        successAction="Sure Delete"
+                        successHandleButton={hadleDeleteSeller}
+                        modalData={deleteingSeller}
 
+                    ></ConfirmationModal>
+                }
+                {/* Seller Verification Confirmation */}
             </div>
+
+            {
+                userVerified && <VerificationModal
+                    title='Do you really want to verify the user'
+                    meassage="Before verifying the user, check all user information carefully, then verify."
+                    successAction="I am Sure"
+                    successHandleButton={hadleUserVerified}
+                    modalData={userVerified}
+                ></VerificationModal>
+            }
+
         </div>
     );
 };

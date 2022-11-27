@@ -1,22 +1,55 @@
 import { useQuery } from '@tanstack/react-query';
-import moment from 'moment/moment';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContextAPI } from '../../../ContextAPI/AuthContext';
+import ConfirmationModal from '../../../ShareComponent/ConfirmationModal';
+import VerificationModal from '../../../ShareComponent/VerificationModal';
 import Loader from '../../SecondHand/Loader/Loader';
 
 const MyProduct = () => {
     const { user, useloader } = useContext(AuthContextAPI);
+    const [deteteProduct, setDeteteProduct] = useState(null);
+    const [adsrunProduct, setadsrunProduct] = useState(null);
 
 
-    const { data: myProducts = [] } = useQuery({
+    const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["myProducts"],
         queryFn: async () => {
-            const res = await fetch(`https://book-resale-server-site.vercel.app/books?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/books?email=${user?.email}`);
             const data = res.json();
             return (data);
-
         }
     });
+
+
+    /// User product Delete
+    const handledeteteProduct = user => {
+        console.log(user);
+        fetch(`http://localhost:5000/books/${user._id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success("Deleted Seller Data Success!!");
+                }
+            })
+    }
+
+    /// User product Update
+    const handleUpdateProduct = user => {
+        fetch(`http://localhost:5000/books/adsrun/${user}`, {
+            method: 'PUT',
+        })
+            .then(res => res.json())
+            .then(data => {
+                refetch();
+                toast.success("Your Ads is Runing Success!!");
+            })
+    }
+
 
     return (
         <div>
@@ -31,8 +64,9 @@ const MyProduct = () => {
                                     <th>Book Name</th>
                                     <th>Categorie</th>
                                     <th>Price</th>
-                                    <th>Status</th>
-                                    <th>Published Date</th>
+                                    <th>DELETE</th>
+                                    <th>Update</th>
+                                    <th>Advertisement</th>
                                 </tr>
                             </thead>
                             <tbody className='text-accent'>
@@ -50,11 +84,22 @@ const MyProduct = () => {
                                                     <td>{myProducts.categorie}</td>
                                                     <td>{myProducts.price} Taka</td>
                                                     <td>
-                                                        <button className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</button>
+                                                        <label onClick={() => setDeteteProduct(myProducts)} htmlFor="confirmation-modal" className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</label>
                                                         <br />
-                                                        <button className='btn text-white btn-sm btn-success'>UPDATE</button>
                                                     </td>
-                                                    <td>{moment(myProducts.postTime).format('MMMM Do YYYY')}</td>
+                                                    <td>
+                                                        <button className='btn text-white btn-sm btn-accent'>Udpate</button>
+                                                    </td>
+                                                    <td>
+                                                        {myProducts.adsrun ?
+                                                            <>
+                                                                <label className=' text-white p-2 rounded-lg font-bold btn-success '>Ads Running</label>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <label onClick={() => setadsrunProduct(myProducts._id)} htmlFor="confirmation-veri" className='btn text-white btn-sm btn-info'>Ads Start</label>
+                                                            </>}
+                                                    </td>
                                                 </tr>
                                             )
                                         }
@@ -64,6 +109,24 @@ const MyProduct = () => {
                         </table>
                     </div>
                 </div>
+                {deteteProduct && <ConfirmationModal
+                    title='Are you sure you want to delete this Product?'
+                    meassage="If you delete this Product, all information about this Product will be deleted from the database. Click on the Delete button to confirm."
+                    successAction="Sure Delete"
+                    successHandleButton={handledeteteProduct}
+                    modalData={deteteProduct}
+                ></ConfirmationModal>}
+
+                {
+                    adsrunProduct && <VerificationModal
+                        title='Are you sure Ads Run?'
+                        meassage="If you want to advertise this product through our website, then certain conditions must be followed. If yes then run."
+                        successAction="Run Ads"
+                        successHandleButton={handleUpdateProduct}
+                        modalData={adsrunProduct}
+                    ></VerificationModal>
+                }
+
             </div>
         </div>
     );
