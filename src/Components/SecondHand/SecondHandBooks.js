@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import Userprofile from '../../ShareComponent/UserProfile/Userprofile';
 import Loader from './Loader/Loader';
 
 const SecondHandBooks = () => {
@@ -27,9 +28,6 @@ const SecondHandBooks = () => {
     });
 
 
-    console.log(BooksData);
-    console.log(userBooksData);
-
 
     return (
         <>
@@ -43,24 +41,7 @@ const SecondHandBooks = () => {
                         BooksData?.map(BooksData =>
                             <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-primary text-gray-100 mt-10">
                                 <div className="flex space-x-4">
-                                    {userBooksData?.verified ?
-                                        <>
-                                            <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
-                                                <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full text-gray-100 border-gray-900"></span>
-                                                <Link><img src={userBooksData?.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
-                                            </div>
-                                        </>
-                                        :
-                                        <>
-                                            <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
-                                                <span className="absolute bottom-0 right-0 flex items-center justify-center w-4 h-4 bg-red-600 border rounded-full border-gray-900 text-gray-900">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-2 h-3 fill-current">
-                                                        <rect width="368" height="32" x="72" y="240"></rect>
-                                                    </svg>
-                                                </span>
-                                                <Link><img src="https://i.ibb.co/DQxXd4F/icons.png" alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
-                                            </div>
-                                        </>}
+                                   <Userprofile BooksData={BooksData}></Userprofile>
                                     <div className="flex flex-col space-y-1">
                                         <a rel="noopener noreferrer" href="/" className="text-sm font-semibold">{BooksData?.authName}</a>
                                         <span className="text-xs text-gray-400">Post Time: {moment(BooksData?.postTime).startOf('hour').fromNow()}</span>

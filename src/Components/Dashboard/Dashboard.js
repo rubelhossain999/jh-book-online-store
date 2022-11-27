@@ -31,10 +31,9 @@ const Dashboard = () => {
                         {
                             userinformation?.map(userStatu =>
                                 <>
-                                    <Header userStatu={userStatu}></Header>
                                     <div key={userStatu._id} className='border-b pb-3'>
                                         <h3 className='text-center font-bold text-xl text-secondary'>{user?.displayName}</h3>
-                                        <h3 className='text-center text-xs'>ID: {user.uid}</h3>
+                                        <h3 className='text-center text-xs'>ID: {userStatu._id}</h3>
                                         {userStatu?.verified ?
                                             <>
                                                 <h3 className='text-center text-'>Status: <span className='text-lime-500 font-bold'>Verified</span></h3>
