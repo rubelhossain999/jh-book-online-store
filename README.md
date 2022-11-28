@@ -13,3 +13,6 @@ Website: https://jhbook-8c684.web.app/
 - I have used Tailwind Framework of CSS in this website, which makes the website very easily 100% responsive and loading speed and good design quality. Quickly design is possible. Tailwind is the most popular framework.
 - I have the website collecting Vercel server database, loading the data from there into my website using API. And there is Main View of that website in Netlifi.
 - Every data in the project is loaded into the website using APIs from third party websites, for which every content of the website is dynamically shown.
+
+adminEmail: rubel@admin.com
+adminPassword: 123456
