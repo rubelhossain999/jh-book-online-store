@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
 import BookNowModal from '../../ShareComponent/BookNowModal';
 import Categories from '../Home/Categories';
@@ -9,6 +9,7 @@ const SingleBook = () => {
     const { user } = useContext(AuthContextAPI)
     const singleData = useLoaderData();
     const [bookingNow, setBookingNow] = useState(null);
+    const navigate = useNavigate();
 
     console.log(user);
 
@@ -16,6 +17,41 @@ const SingleBook = () => {
     const handlebookingNow = event => {
         toast.success("You Request is booked");
         console.log("object");
+    }
+
+    // Add to Card Options
+    const handleAddTocart = (id, price, title, image, emails )=> {
+        const orderid = id;
+        const email = emails;
+        const pri = price;
+        const pname = title;
+        const pimge = image;
+        
+        const addToCart = {
+            orderid,
+            pri,
+            pname,
+            pimge,
+            email
+        }
+        console.log(addToCart);
+
+        fetch('http://localhost:5000/orders', {
+            method: "POST",
+            headers: {
+                "content-type" : "application/json"
+            },
+            body: JSON.stringify(addToCart)
+        })
+        .then(res => res.json())
+      .then(data => {
+        toast.success('Product Add to Cart Success!!');
+        navigate('/dashboard/orderproducts');
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
 
@@ -44,7 +80,7 @@ const SingleBook = () => {
                     </div>
 
                     <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-                        <a rel="noopener noreferrer" href="/" className="px-8 py-3 text-lg font-semibold rounded bg-secondary text-white">Direct Add To Cart</a>
+                        <button onClick={() => handleAddTocart(singleData._id, singleData.price, singleData.title, singleData.image, user.email)} className="px-8 py-3 text-lg font-semibold rounded bg-secondary text-white">Direct Add To Cart</button>
                         <label onClick={setBookingNow} htmlFor="confirmation-book" className="px-8 py-3 cursor-pointer text-lg font-semibold border rounded border-black hover:bg-secondary hover:border-none hover:text-white">Book now</label>
 
 

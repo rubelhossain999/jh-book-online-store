@@ -19,7 +19,6 @@ const Login = () => {
 
     if(token){
         navigator(from, { replace: true });
-        toast.success("User Login is Success!!");
     }
 
     const handleLoginUser = event => {

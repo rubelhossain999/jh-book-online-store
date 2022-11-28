@@ -9,7 +9,6 @@ import Header from '../../ShareComponent/Header';
 const Dashboard = () => {
     const { user } = useContext(AuthContextAPI);
     const [isAdmin] = useAdmin(user?.email);
-    const [isSeller] = useSeller(user?.email)
 
     const { data: userinformation = [] } = useQuery({
         queryKey: ["userinformation"],
@@ -19,6 +18,8 @@ const Dashboard = () => {
             return (data);
         }
     });
+
+    console.log(userinformation);
 
 
     return (
@@ -50,16 +51,32 @@ const Dashboard = () => {
                                     </div>
                                 </>)
                         }
+                        <li><Link to='/dashboard'>Dashboard</Link></li>
                         {
                             isAdmin && <>
-                                <li className='mt-10'><Link to='/dashboard/seller'>All Seller</Link></li>
+                                <li><Link to='/dashboard/seller'>All Seller</Link></li>
                                 <li><Link to='/dashboard/customer'>All Customer</Link></li>
                                 <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
+                                <li><Link to='/dashboard/myproduct'>My Product</Link></li>
                             </>
                         }
-                        
-                        <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
-                        <li><Link to='/dashboard/myproduct'>My Product</Link></li>
+                        {
+                            userinformation?.map(userinformation =>
+                                <>
+                                    {
+                                        userinformation?.role && "seller" ?
+                                            <>
+                                            </>
+                                            :
+                                            <>
+                                                <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
+                                                <li><Link to='/dashboard/myproduct'>My Product</Link></li>
+                                            </>
+                                    }
+                                </>
+                            )
+                        }
+                        <li><Link to='/dashboard/orderproducts'>Order Products</Link></li>
                     </ul>
 
                 </div>
