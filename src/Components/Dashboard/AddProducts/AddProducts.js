@@ -128,9 +128,9 @@ const AddProducts = ({ userinfo }) => {
             <div>
               <label for="image" className="block mb-2 text-xl text-black">User Status</label>
               {
-                sellersdatafromdash?.map( sellersdatafromdash => 
-                  <input key={sellersdatafromdash._id} type="text" name="status" defaultValue={sellersdatafromdash.verified} id="status" placeholder='Unverified' className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" disabled/>
-                  )
+                sellersdatafromdash?.map(sellersdatafromdash =>
+                  <input key={sellersdatafromdash._id} type="text" name="status" defaultValue={sellersdatafromdash.verified} id="status" placeholder='Unverified' className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" disabled />
+                )
               }
             </div>
             <div>
