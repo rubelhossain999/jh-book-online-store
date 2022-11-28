@@ -27,8 +27,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element: <SingleBook></SingleBook>,
-                loader: ({ params }) => fetch(`http://localhost:3000/books/${params.id}`)
+                element:<PrivateRoute> <SingleBook></SingleBook></PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/books/data/${params.id}`)
             },
             {
                 path: '/blog',

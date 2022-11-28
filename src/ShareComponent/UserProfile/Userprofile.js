@@ -14,7 +14,7 @@ const Userprofile = ({ BooksData }) => {
                 </>
                 :
                 <>
-                    <div className="relative flex-shrink-0 border-2 border-double border-secondary rounded-full">
+                    <div className="relative flex-shrink-0 border-2 border-double border-green-600 rounded-full">
                         <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full text-gray-100 border-gray-900"></span>
                         <Link><img src={BooksData.photoURL} alt="" className="w-12 h-12 border rounded-full bg-gray-500 border-gray-700" /></Link>
                     </div>
