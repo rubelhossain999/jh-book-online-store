@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import BookNowModal from '../../ShareComponent/BookNowModal';
 import Categories from '../Home/Categories';
 
 const SingleBook = () => {
+    const { user } = useContext(AuthContextAPI)
     const singleData = useLoaderData();
-    console.log(singleData);
+    const [bookingNow, setBookingNow] = useState(null);
+
+    console.log(user);
+
+
+    const handlebookingNow = event => {
+        toast.success("You Request is booked");
+        console.log("object");
+    }
+
+
     return (
         <section className="text-gray-100 max-w-[1340px] mx-auto">
             <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between text-black border-b-2 mb-5 border-primary">
@@ -31,9 +45,27 @@ const SingleBook = () => {
 
                     <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                         <a rel="noopener noreferrer" href="/" className="px-8 py-3 text-lg font-semibold rounded bg-secondary text-white">Direct Add To Cart</a>
-                        <a rel="noopener noreferrer" href="/" className="px-8 py-3 text-lg font-semibold border rounded border-black hover:bg-secondary hover:border-none hover:text-white">Book now</a>
+                        <label onClick={setBookingNow} htmlFor="confirmation-book" className="px-8 py-3 cursor-pointer text-lg font-semibold border rounded border-black hover:bg-secondary hover:border-none hover:text-white">Book now</label>
+
+
                     </div>
                 </div>
+
+                {
+                    bookingNow && <BookNowModal
+                        name={user.displayName}
+                        email={user.email}
+                        itemname={singleData.title}
+                        phone="+880170-123456"
+                        price={singleData.price}
+                        meetinglocation={singleData.location}
+                        successAction="Submit Booking"
+                        bookHandleButton={handlebookingNow}
+                        modalbook={bookingNow}
+
+                    ></BookNowModal>
+                }
+
             </div>
             <div>
                 <h2 className='text-3xl text-black font-semibold'>See The Other Category Products</h2>

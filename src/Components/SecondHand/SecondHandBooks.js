@@ -9,15 +9,6 @@ import Loader from './Loader/Loader';
 const SecondHandBooks = () => {
     const { user, useloader } = useContext(AuthContextAPI);
 
-    const { data: userBooksData = [] } = useQuery({
-        queryKey: ["userBooksData"],
-        queryFn: async () => {
-            const res = await fetch('https://book-resale-server-site.vercel.app/users');
-            const data = res.json();
-            return (data);
-        }
-    });
-
     const { data: BooksData = [] } = useQuery({
         queryKey: ["BooksData"],
         queryFn: async () => {
