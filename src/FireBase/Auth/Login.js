@@ -1,15 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
 import SocialLogin from './SocialLogin';
 import Loginimg from '../../assets/Login.svg';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const { loginuser } = useContext(AuthContextAPI);
     const location = useLocation();
     const navigator = useNavigate();
+    
+    /// Use  json Web Token 
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail);
+    
     const from = location.state?.from?.pathname || '/';
+
+    if(token){
+        navigator(from, { replace: true });
+        toast.success("User Login is Success!!");
+    }
 
     const handleLoginUser = event => {
         event.preventDefault();
@@ -21,9 +32,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                form.reset();
-                toast.success("User Login is Success!!");
-                navigator(from, { replace: true });
+                setLoginUserEmail(email);
             })
             .catch(error => {
                 console.error(error);

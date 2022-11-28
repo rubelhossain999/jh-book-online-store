@@ -6,7 +6,7 @@ import ConfirmationModal from '../../ShareComponent/ConfirmationModal';
 import VerificationModal from '../../ShareComponent/VerificationModal';
 import Loader from '../SecondHand/Loader/Loader';
 
-const DashboardInfo = () => {
+const AllCustomer = () => {
     const { user, useloader } = useContext(AuthContextAPI);
     const [deleteingSeller, setDeleteingSeller] = useState(null);
     const [userVerified, SetUserverified] = useState(null);
@@ -17,7 +17,7 @@ const DashboardInfo = () => {
     const { data: mysellers = [], refetch } = useQuery({
         queryKey: ["mysellers"],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/regisusers/seller');
+            const res = await fetch('http://localhost:5000/regisusers/customer');
             const data = res.json();
             return (data);
         }
@@ -67,7 +67,7 @@ const DashboardInfo = () => {
 
     return (
         <div>
-            <h2 className='text-3xl text-accent font-semibold'>All Seller</h2>
+            <h2 className='text-3xl text-accent font-semibold'>All Customer</h2>
             <div>
                 <div className="overflow-x-auto mt-10">
                     <table className="table w-full">
@@ -166,4 +166,4 @@ const DashboardInfo = () => {
     );
 };
 
-export default DashboardInfo;
+export default AllCustomer;

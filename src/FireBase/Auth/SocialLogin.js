@@ -1,7 +1,9 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import useToken from '../../hooks/useToken';
 
 const SocialLogin = () => {
     const {googleLoginPop} = useContext(AuthContextAPI);
@@ -10,12 +12,23 @@ const SocialLogin = () => {
     const navigator = useNavigate();
     const from = location.state?.from?.pathname || '/';
 
+    /// Use  json Web Token 
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail);
+
+    if(token){
+        navigator(from, { replace: true });
+        toast.success("User Login is Success!!");
+    }
+
+
     const handleGoogleLogin = () =>{
         googleLoginPop(provider)
         .then((result) => {
             const user = result.user;
             console.log(user);
-            navigator(from, { replace: true });
+            setLoginUserEmail(user)
+          
         })
         .catch((err) => {
             console.log(err);

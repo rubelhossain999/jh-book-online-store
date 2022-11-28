@@ -2,10 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import useAdmin from '../../hooks/useAdmin';
+import useSeller from '../../hooks/useSeller';
 import Header from '../../ShareComponent/Header';
 
 const Dashboard = () => {
     const { user } = useContext(AuthContextAPI);
+    const [isAdmin] = useAdmin(user?.email);
+    const [isSeller] = useSeller(user?.email)
 
     const { data: userinformation = [] } = useQuery({
         queryKey: ["userinformation"],
@@ -46,8 +50,18 @@ const Dashboard = () => {
                                     </div>
                                 </>)
                         }
-                        <li className='mt-10'><Link to='/dashboard'>Dashboard</Link></li>
-                        <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
+                        {
+                            isAdmin && <>
+                                <li className='mt-10'><Link to='/dashboard/seller'>All Seller</Link></li>
+                                <li><Link to='/dashboard/customer'>All Customer</Link></li>
+                                <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
+                            </>
+                        }
+                        {
+                            isSeller && <>
+                                <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
+                            </>
+                        }
                         <li><Link to='/dashboard/myproduct'>My Product</Link></li>
                     </ul>
 

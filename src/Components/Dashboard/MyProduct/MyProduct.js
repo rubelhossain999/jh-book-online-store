@@ -15,12 +15,17 @@ const MyProduct = () => {
     const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["myProducts"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/books?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/books?email=${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = res.json();
             return (data);
         }
     });
 
+    console.log(myProducts);
 
     /// User product Delete
     const handledeteteProduct = user => {
@@ -78,11 +83,11 @@ const MyProduct = () => {
                                     <>
                                         {
                                             myProducts?.map((myProducts, i) =>
-                                                <tr key={myProducts._id}>
+                                                <tr key={myProducts?._id}>
                                                     <th>{i + 1}</th>
-                                                    <td>{myProducts.title.slice(0, 15) + "..."}</td>
-                                                    <td>{myProducts.categorie}</td>
-                                                    <td>{myProducts.price} Taka</td>
+                                                    <td>{myProducts?.title.slice(0, 15) + "..."}</td>
+                                                    <td>{myProducts?.categorie}</td>
+                                                    <td>{myProducts?.price} Taka</td>
                                                     <td>
                                                         <label onClick={() => setDeteteProduct(myProducts)} htmlFor="confirmation-modal" className='btn text-white btn-sm btn-error mr-3 mb-2'>DELETE</label>
                                                         <br />
@@ -91,13 +96,13 @@ const MyProduct = () => {
                                                         <button className='btn text-white btn-sm btn-accent'>Udpate</button>
                                                     </td>
                                                     <td>
-                                                        {myProducts.adsrun ?
+                                                        {myProducts?.adsrun ?
                                                             <>
                                                                 <label className=' text-white p-2 rounded-lg font-bold btn-success '>Ads Running</label>
                                                             </>
                                                             :
                                                             <>
-                                                                <label onClick={() => setadsrunProduct(myProducts._id)} htmlFor="confirmation-veri" className='btn text-white btn-sm btn-info'>Ads Start</label>
+                                                                <label onClick={() => setadsrunProduct(myProducts?._id)} htmlFor="confirmation-veri" className='btn text-white btn-sm btn-info'>Ads Start</label>
                                                             </>}
                                                     </td>
                                                 </tr>

@@ -2,9 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import AllBooks from "../Components/AllBooks/AllBooks";
 import Blog from "../Components/Blog/Blog";
 import AddProducts from "../Components/Dashboard/AddProducts/AddProducts";
+import AllCustomer from "../Components/Dashboard/AllCustomer";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import DashboardInfo from "../Components/Dashboard/DashboardInfo";
 import MyProduct from "../Components/Dashboard/MyProduct/MyProduct";
+import Welcome from "../Components/Dashboard/Welcome";
 import Error from "../Components/Error/Error";
 import Home from "../Components/Home/Home";
 import Main from "../Components/Main";
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element:<PrivateRoute> <SingleBook></SingleBook></PrivateRoute>,
+                element: <PrivateRoute> <SingleBook></SingleBook></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/books/data/${params.id}`)
             },
             {
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
                 element: <Blog></Blog>
             },
             {
-                path:'/login',
+                path: '/login',
                 element: <Login></Login>
             },
             {
@@ -70,8 +72,16 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard/',
-                element: <DashboardInfo></DashboardInfo>
+                element: <Welcome></Welcome>
 
+            },
+            {
+                path: '/dashboard/seller',
+                element: <DashboardInfo></DashboardInfo>
+            },
+            {
+                path: '/dashboard/customer',
+                element: <AllCustomer></AllCustomer>
             },
             {
                 path: '/dashboard/addproduct',

@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import registration from '../../assets/registration.svg';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
+import useToken from '../../hooks/useToken';
 import SocialLogin from './SocialLogin';
 
 
@@ -12,7 +13,14 @@ const Registration = () => {
     const [profileImage, setProfileImage] = useState();
     const imgHostKey = process.env.REACT_APP_ibbimage_KEY;
 
-    console.log(profileImage);
+    // use jtw Token
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+
+    if(token){
+        navigator('/')
+    }
+
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -41,8 +49,6 @@ const Registration = () => {
                         updatUsernameandrole(name, imgData.data.url)
                             .then(() => {
                                 form.reset('')
-                                toast.success("User Login Success");
-                                navigator('/');
                             })
                             .catch(error => {
                                 console.log(error);
@@ -54,8 +60,6 @@ const Registration = () => {
                         toast.error("This User already Registered", error.meassage);
                     })
 
-
-
             })
         const userInfo = {
             name,
@@ -66,7 +70,6 @@ const Registration = () => {
         console.log(userInfo);
 
         /// User info Mongodb Added
-
         fetch('http://localhost:5000/regisusers', {
             method: "POST",
             headers: {
@@ -76,14 +79,15 @@ const Registration = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setCreatedUserEmail(email);
+                toast.success("User Login Success");
             })
             .catch(err => {
                 console.log(err);
             })
-
-
     }
+
+
     return (
         <div className='p-6 m-10 max-w-[1340px] mx-auto grid lg:grid-cols-2 grid-cols-1'>
             <img className='mr-20 lg:mt-60 mb-9' src={registration} alt='login'></img>
@@ -98,7 +102,7 @@ const Registration = () => {
                             <label for="name" className="block mb-2 text-sm">Name</label>
                             <input type="name" name="name" id="name" placeholder="name" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
                         </div>
-                        
+
                         <div>
                             <label for="email" className="block mb-2 text-sm">Email address</label>
                             <input type="email" name="email" id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" required />
