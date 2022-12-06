@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContextAPI } from '../../ContextAPI/AuthContext';
 import useAdmin from '../../hooks/useAdmin';
-import useSeller from '../../hooks/useSeller';
 import Header from '../../ShareComponent/Header';
 
 const Dashboard = () => {
@@ -13,7 +12,7 @@ const Dashboard = () => {
     const { data: userinformation = [] } = useQuery({
         queryKey: ["userinformation"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/regisusers?email=${user?.email}`);
+            const res = await fetch(`https://book-resale-server-site.vercel.app/regisusers?email=${user?.email}`);
             const data = res.json();
             return (data);
         }
@@ -56,27 +55,36 @@ const Dashboard = () => {
                             isAdmin && <>
                                 <li><Link to='/dashboard/seller'>All Seller</Link></li>
                                 <li><Link to='/dashboard/customer'>All Customer</Link></li>
-                                <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
-                                <li><Link to='/dashboard/myproduct'>My Product</Link></li>
+                                <li><Link to='/dashboard/reportdproduct'>Reports Products</Link></li>
                             </>
                         }
                         {
                             userinformation?.map(userinformation =>
                                 <>
                                     {
-                                        userinformation?.role && "seller" ?
+                                        userinformation?.role === "seller" ?
                                             <>
+                                            <li><Link to='/dashboard/addproduct'>Add Book</Link></li>
+                                            <li><Link to='/dashboard/myproduct'>My Books</Link></li>
                                             </>
                                             :
                                             <>
-                                                <li><Link to='/dashboard/addproduct'>Add Product</Link></li>
-                                                <li><Link to='/dashboard/myproduct'>My Product</Link></li>
+                                            </>
+                                    }
+                                    {
+                                        userinformation?.admin === "admin" ?
+                                            <>
+                                            <li><Link to='/dashboard/addproduct'>Add Book</Link></li>
+                                            <li><Link to='/dashboard/myproduct'>My Books</Link></li>
+                                            </>
+                                            :
+                                            <>
                                             </>
                                     }
                                 </>
                             )
                         }
-                        <li><Link to='/dashboard/orderproducts'>Order Products</Link></li>
+                        <li><Link to='/dashboard/orderproducts'>My Ordesr</Link></li>
                     </ul>
 
                 </div>

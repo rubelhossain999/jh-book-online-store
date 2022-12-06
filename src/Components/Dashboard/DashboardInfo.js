@@ -17,7 +17,7 @@ const DashboardInfo = () => {
     const { data: mysellers = [], refetch } = useQuery({
         queryKey: ["mysellers"],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/regisusers/seller');
+            const res = await fetch('https://book-resale-server-site.vercel.app/regisusers/seller');
             const data = res.json();
             return (data);
         }
@@ -25,7 +25,7 @@ const DashboardInfo = () => {
 
     // Make a Admin Function
     const hadleMakeAdmin = user => {
-        fetch(`http://localhost:5000/regisusers/admin/${user}`, {
+        fetch(`https://book-resale-server-site.vercel.app/regisusers/admin/${user}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -40,7 +40,7 @@ const DashboardInfo = () => {
 
     /// User Delete Config
     const hadleDeleteSeller = user => {
-        fetch(`http://localhost:5000/regisusers/${user._id}`, {
+        fetch(`https://book-resale-server-site.vercel.app/regisusers/${user._id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -55,7 +55,7 @@ const DashboardInfo = () => {
 
     /// User Veified
     const hadleUserVerified = id => {
-        fetch(`http://localhost:5000/regisusers/${id}`, {
+        fetch(`https://book-resale-server-site.vercel.app/regisusers/${id}`, {
             method: 'PUT',
         })
             .then(res => res.json())

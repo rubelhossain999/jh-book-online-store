@@ -70,7 +70,7 @@ const Registration = () => {
         console.log(userInfo);
 
         /// User info Mongodb Added
-        fetch('http://localhost:5000/regisusers', {
+        fetch('https://book-resale-server-site.vercel.app/regisusers', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

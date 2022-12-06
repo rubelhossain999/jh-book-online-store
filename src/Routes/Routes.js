@@ -7,6 +7,8 @@ import Dashboard from "../Components/Dashboard/Dashboard";
 import DashboardInfo from "../Components/Dashboard/DashboardInfo";
 import MyProduct from "../Components/Dashboard/MyProduct/MyProduct";
 import OrderProducts from "../Components/Dashboard/OrderProducts/OrderProducts";
+import Payments from "../Components/Dashboard/Payments/Payments";
+import ReportsProducts from "../Components/Dashboard/ReportsProducts/ReportsProducts";
 import Welcome from "../Components/Dashboard/Welcome";
 import Error from "../Components/Error/Error";
 import Home from "../Components/Home/Home";
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <PrivateRoute> <SingleBook></SingleBook></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/books/data/${params.id}`)
+                loader: ({ params }) => fetch(`https://book-resale-server-site.vercel.app/books/data/${params.id}`)
             },
             {
                 path: '/blog',
@@ -95,6 +97,17 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/myproduct',
                 element: <MyProduct></MyProduct>
+
+            },
+            {
+                path: '/dashboard/reportdproduct',
+                element: <ReportsProducts></ReportsProducts>
+
+            },
+            {
+                path: '/dashboard/cartpayment/:id',
+                element: <Payments></Payments>,
+                loader: ({ params }) => fetch(`https://book-resale-server-site.vercel.app/ordersdata/${params.id}`)
 
             }
         ]

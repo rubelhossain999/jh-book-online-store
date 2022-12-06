@@ -36,7 +36,7 @@ const SingleBook = () => {
         }
         console.log(addToCart);
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://book-resale-server-site.vercel.app/orders', {
             method: "POST",
             headers: {
                 "content-type" : "application/json"
@@ -89,6 +89,7 @@ const SingleBook = () => {
 
                 {
                     bookingNow && <BookNowModal
+                        title= "Do you want to book a meeting?"
                         name={user.displayName}
                         email={user.email}
                         itemname={singleData.title}

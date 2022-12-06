@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BookNowModal = ({ name, email, itemname, phone, price, meetinglocation, modalData: modalbook, successAction, bookHandleButton }) => {
+const BookNowModal = ({title, name, email, itemname, phone, price, meetinglocation, modalData: modalbook, successAction, bookHandleButton }) => {
     return (
         <div>
             {/* Put this part before </body> tag */}
@@ -11,8 +11,7 @@ const BookNowModal = ({ name, email, itemname, phone, price, meetinglocation, mo
                     <>
                         <form className="space-y-12 ng-untouched ng-pristine ng-valid mt-5">
                             <div className="space-y-4">
-                                <label for="title" className="block mb-2 text-xl text-black">Do you want to book a meeting?</label>
-                                <span>Then submit with your information.</span>
+                                <label for="title" className="block mb-2 text-xl text-black">{title}</label>
                                 <div>
                                     <p className='font-semibold text-lg'>
                                         Item name: {itemname}
@@ -30,11 +29,11 @@ const BookNowModal = ({ name, email, itemname, phone, price, meetinglocation, mo
                                     <input type="text" name="title" defaultValue={email} disabled id="title" placeholder="Book Title" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
                                 </div>
                                 <div>
-                                    <input type="text" name="title" defaultValue={phone} disabled id="title" placeholder="Book Title" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+                                    <input type="text" name="title" defaultValue={phone} id="title" placeholder="Your Phone number" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
                                 </div>
                                 <div>
                                 Meeting Location:
-                                    <input type="text" name="title" defaultValue={meetinglocation} disabled id="title" placeholder="Book Title" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+                                    <input type="text" name="title" defaultValue={meetinglocation} id="title" placeholder="Meeting Location" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
                                 </div>
                                 <div>
                                 You Comment:

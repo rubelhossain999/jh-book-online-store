@@ -15,7 +15,7 @@ const MyProduct = () => {
     const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["myProducts"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/books?email=${user?.email}`, {
+            const res = await fetch(`https://book-resale-server-site.vercel.app/booksdata?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -30,7 +30,7 @@ const MyProduct = () => {
     /// User product Delete
     const handledeteteProduct = user => {
         console.log(user);
-        fetch(`http://localhost:5000/books/${user._id}`, {
+        fetch(`https://book-resale-server-site.vercel.app/books/${user._id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -45,7 +45,7 @@ const MyProduct = () => {
 
     /// User product Update
     const handleUpdateProduct = user => {
-        fetch(`http://localhost:5000/books/adsrun/${user}`, {
+        fetch(`https://book-resale-server-site.vercel.app/books/adsrun/${user}`, {
             method: 'PUT',
         })
             .then(res => res.json())
@@ -65,7 +65,7 @@ const MyProduct = () => {
                         <table className="table w-full">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>Picture</th>
                                     <th>Book Name</th>
                                     <th>Categorie</th>
                                     <th>Price</th>
@@ -84,7 +84,13 @@ const MyProduct = () => {
                                         {
                                             myProducts?.map((myProducts, i) =>
                                                 <tr key={myProducts?._id}>
-                                                    <th>{i + 1}</th>
+                                                    <th>
+                                                        <div className="flex flex-col items-center justify-center">
+                                                            <div className="flex space-x-5">
+                                                                <img alt="" className="w-16 h-14 ring-2 ring-offset-gray-800" src={myProducts.image} />
+                                                            </div>
+                                                        </div>
+                                                    </th>
                                                     <td>{myProducts?.title.slice(0, 15) + "..."}</td>
                                                     <td>{myProducts?.categorie}</td>
                                                     <td>{myProducts?.price} Taka</td>
@@ -98,7 +104,7 @@ const MyProduct = () => {
                                                     <td>
                                                         {myProducts?.adsrun ?
                                                             <>
-                                                                <label className=' text-white p-2 rounded-lg font-bold btn-success '>Ads Running</label>
+                                                                <label className=' text-white p-2 rounded-lg font-bold btn-success'>Ads Running</label>
                                                             </>
                                                             :
                                                             <>
